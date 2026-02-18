@@ -1,1 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Games | Browser Arcade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <nav class="navbar">
+        <div class="logo">NEXUS</div>
+        <div class="user-stats">Credits: <span id="userCredits">100</span></div>
+    </nav>
+
+    <main class="game-grid" id="gameGrid">
+        </main>
+
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="currentVisibleTitle">Loading Game...</h2>
+            <div id="gameViewport">
+                </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
