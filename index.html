@@ -3,43 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS | Gaming Portal</title>
+    <title>NEXUS ARCADE</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="logo">NEXUS</div>
-        <nav>
-            <a href="#" class="active">🏠 Home</a>
-            <a href="#">🔥 Trending</a>
-            <a href="#">🏆 Ranks</a>
-        </nav>
-        <div class="profile">
-            <div class="avatar"></div>
-            <span>Guest_772</span>
-        </div>
-    </aside>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">NEXUS</div>
+            <nav>
+                <div class="nav-item active">🏠 Home</div>
+                <div class="nav-item">🚀 Games</div>
+                <div class="nav-item">👤 Profile</div>
+            </nav>
+        </aside>
 
-    <main class="content">
-        <header>
-            <h1>Discover Games</h1>
-            <div class="search-bar">
-                <input type="text" placeholder="Search games...">
-            </div>
-        </header>
+        <main class="main-content">
+            <header>
+                <h1>Explore Universe</h1>
+                <div class="user-pill">Guest_User</div>
+            </header>
 
-        <section class="game-grid" id="gameGrid">
-            </section>
-    </main>
+            <div class="game-grid" id="gameGrid">
+                </div>
+        </main>
+    </div>
 
     <div id="gameOverlay" class="overlay">
-        <div class="overlay-header">
-            <h2 id="overlayTitle">Game Name</h2>
-            <button class="close-btn" onclick="closeGame()">&times;</button>
+        <div class="overlay-content">
+            <div class="overlay-nav">
+                <span id="activeGameTitle">Loading...</span>
+                <button class="exit-btn" onclick="closeGame()">Exit Game</button>
+            </div>
+            <div id="iframeContainer"></div>
         </div>
-        <div id="gameContainer"></div>
     </div>
 
     <script src="script.js"></script>
