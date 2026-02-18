@@ -1,23 +1,21 @@
-const gamesList = [
-    { title: "Square Dodger", icon: "🟦", category: "Action", file: "games/dodger.html" },
-    { title: "Neon Runner", icon: "🏃", category: "Arcade", file: "games/runner.html" },
-    { title: "Void Clicker", icon: "🖱️", category: "Casual", file: "games/clicker.html" },
-    { title: "Space Wars", icon: "🚀", category: "Shooter", file: "games/space.html" }
+const games = [
+    { title: "Square Dodger", icon: "🟦", file: "games/dodger.html" },
+    { title: "Neon Runner", icon: "🏃", file: "games/runner.html" },
+    { title: "Space Loot", icon: "🚀", file: "games/space.html" }
 ];
 
 const grid = document.getElementById('gameGrid');
 const overlay = document.getElementById('gameOverlay');
+const iframeContainer = document.getElementById('iframeContainer');
 
-function init() {
-    gamesList.forEach(game => {
+function loadGames() {
+    grid.innerHTML = '';
+    games.forEach(game => {
         const card = document.createElement('div');
-        card.className = 'game-card';
+        card.className = 'card';
         card.innerHTML = `
-            <div class="thumb">${game.icon}</div>
-            <div class="info">
-                <h3>${game.title}</h3>
-                <p>${game.category}</p>
-            </div>
+            <div class="card-img">${game.icon}</div>
+            <div style="padding: 10px; font-weight: bold;">${game.title}</div>
         `;
         card.onclick = () => launchGame(game);
         grid.appendChild(card);
@@ -25,16 +23,16 @@ function init() {
 }
 
 function launchGame(game) {
-    document.getElementById('overlayTitle').innerText = game.title;
-    document.getElementById('gameContainer').innerHTML = `
-        <iframe src="${game.file}" width="100%" height="100%" frameborder="0"></iframe>
-    `;
+    document.getElementById('activeGameTitle').innerText = game.title;
     overlay.style.display = 'flex';
+    
+    // THE FIX: We use an iframe and clear it every time to prevent "stiffness"
+    iframeContainer.innerHTML = `<iframe src="${game.file}"></iframe>`;
 }
 
 function closeGame() {
     overlay.style.display = 'none';
-    document.getElementById('gameContainer').innerHTML = ''; // Stops the game
+    iframeContainer.innerHTML = ''; // This clears the memory
 }
 
-init();
+loadGames();
