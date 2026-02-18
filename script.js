@@ -1,58 +1,58 @@
 :root {
-    --bg: #0b0e14;
-    --sidebar: #131720;
-    --card: #1c2331;
-    --accent: #7c4dff;
-    --text-main: #ffffff;
-    --text-dim: #94a3b8;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --bg-dark: #05070a;
+    --panel: #0f121a;
+    --accent: #00f2ff;
+    --text: #ffffff;
+    --text-dim: #64748b;
 }
+
+* { box-sizing: border-box; }
 
 body {
-    background-color: var(--bg);
-    color: var(--text-main);
-    font-family: 'Plus Jakarta Sans', sans-serif;
     margin: 0;
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
+    background: var(--bg-dark);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow: hidden; /* Prevents double scrollbars */
 }
 
-/* Sidebar Navigation */
-.sidebar {
-    width: 240px;
-    background: var(--sidebar);
-    padding: 30px;
+.app-container {
     display: flex;
-    flex-direction: column;
-    border-right: 1px solid #2d3748;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: var(--panel);
+    border-right: 1px solid #1e293b;
+    padding: 40px 20px;
 }
 
 .logo {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 800;
-    letter-spacing: 2px;
     color: var(--accent);
-    margin-bottom: 50px;
+    margin-bottom: 40px;
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
 }
 
-nav a {
+.nav-item {
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
     color: var(--text-dim);
-    text-decoration: none;
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    display: block;
-    transition: var(--transition);
+    margin-bottom: 5px;
 }
 
-nav a.active, nav a:hover {
-    background: var(--accent);
-    color: white;
+.nav-item.active, .nav-item:hover {
+    background: #1e293b;
+    color: var(--text);
 }
 
-/* Main Content Area */
-.content {
+/* Content */
+.main-content {
     flex: 1;
     padding: 40px;
     overflow-y: auto;
@@ -62,84 +62,85 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
-.search-bar input {
-    background: var(--card);
-    border: 1px solid #2d3748;
-    padding: 10px 20px;
-    border-radius: 20px;
-    color: white;
-    width: 250px;
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
 }
 
 /* Game Cards */
-.game-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 25px;
-}
-
-.game-card {
-    background: var(--card);
-    border-radius: 16px;
-    overflow: hidden;
+.card {
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 10px;
     cursor: pointer;
-    transition: var(--transition);
-    border: 1px solid transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #1e293b;
 }
 
-.game-card:hover {
-    transform: translateY(-8px);
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     border-color: var(--accent);
-    box-shadow: 0 10px 30px rgba(124, 77, 255, 0.2);
 }
 
-.thumb {
-    height: 140px;
+.card-img {
+    height: 120px;
+    background: #1e293b;
+    border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 50px;
-    background: linear-gradient(45deg, #1e293b, #334155);
+    font-size: 40px;
+    margin-bottom: 10px;
 }
 
-.info {
-    padding: 15px;
-}
-
-.info h3 { margin: 0; font-size: 18px; }
-.info p { color: var(--text-dim); font-size: 14px; margin: 5px 0 0; }
-
-/* The Game Overlay */
+/* Overlay (The Game Player) */
 .overlay {
     display: none;
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    inset: 0;
     background: rgba(0,0,0,0.95);
-    z-index: 1000;
+    z-index: 100;
+    padding: 20px;
+}
+
+.overlay-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
     flex-direction: column;
 }
 
-.overlay-header {
-    padding: 20px 40px;
+.overlay-nav {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #334155;
 }
 
-#gameContainer {
+#iframeContainer {
     flex: 1;
-    margin: 0 40px 40px 40px;
     background: #000;
-    border-radius: 12px;
+    margin-top: 15px;
+    border-radius: 15px;
     overflow: hidden;
 }
 
-.close-btn {
-    background: var(--accent);
-    border: none; color: white;
-    font-size: 24px; padding: 5px 15px;
-    border-radius: 8px; cursor: pointer;
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.exit-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
 }
