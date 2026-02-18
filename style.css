@@ -1,96 +1,40 @@
-:root {
-    --bg-color: #0f172a;
-    --card-bg: #1e293b;
-    --accent: #38bdf8;
-    --text: #f8fafc;
+const gamesList = [
+    { title: "Square Dodger", icon: "🟦", category: "Action", file: "games/dodger.html" },
+    { title: "Neon Runner", icon: "🏃", category: "Arcade", file: "games/runner.html" },
+    { title: "Void Clicker", icon: "🖱️", category: "Casual", file: "games/clicker.html" },
+    { title: "Space Wars", icon: "🚀", category: "Shooter", file: "games/space.html" }
+];
+
+const grid = document.getElementById('gameGrid');
+const overlay = document.getElementById('gameOverlay');
+
+function init() {
+    gamesList.forEach(game => {
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.innerHTML = `
+            <div class="thumb">${game.icon}</div>
+            <div class="info">
+                <h3>${game.title}</h3>
+                <p>${game.category}</p>
+            </div>
+        `;
+        card.onclick = () => launchGame(game);
+        grid.appendChild(card);
+    });
 }
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    margin: 0;
+function launchGame(game) {
+    document.getElementById('overlayTitle').innerText = game.title;
+    document.getElementById('gameContainer').innerHTML = `
+        <iframe src="${game.file}" width="100%" height="100%" frameborder="0"></iframe>
+    `;
+    overlay.style.display = 'flex';
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 50px;
-    background: rgba(15, 23, 42, 0.9);
-    border-bottom: 1px solid #334155;
-    position: sticky;
-    top: 0;
+function closeGame() {
+    overlay.style.display = 'none';
+    document.getElementById('gameContainer').innerHTML = ''; // Stops the game
 }
 
-.game-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 25px;
-    padding: 40px;
-}
-
-.game-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.2s, border 0.2s;
-    cursor: pointer;
-    border: 2px solid transparent;
-}
-
-.game-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent);
-}
-
-.game-thumb {
-    width: 100%;
-    height: 150px;
-    background: #334155;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-}
-
-.game-info {
-    padding: 15px;
-}
-
-/* Modal Styling */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.9);
-}
-
-.modal-content {
-    background: var(--bg-color);
-    margin: 5% auto;
-    padding: 20px;
-    width: 80%;
-    max-width: 800px;
-    border-radius: 15px;
-    position: relative;
-    text-align: center;
-}
-
-#gameViewport {
-    width: 100%;
-    height: 500px;
-    background: #000;
-    border-radius: 8px;
-}
-
-.close-btn {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 30px;
-    cursor: pointer;
-}
+init();
